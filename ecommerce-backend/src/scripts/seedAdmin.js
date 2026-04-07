@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import { fileURLToPath } from 'url'
+import mongoose from 'mongoose'
 
 import connectDB from '../config/db.js'
 import User from '../models/User.js'
@@ -7,14 +8,16 @@ import User from '../models/User.js'
 dotenv.config()
 
 export const seedAdmin = async () => {
-  await connectDB()
+  if (mongoose.connection.readyState !== 1) {
+    await connectDB()
+  }
 
   const email = process.env.ADMIN_EMAIL || 'admin@example.com'
   const existingAdmin = await User.findOne({ email })
 
   if (existingAdmin) {
     console.log(`Admin already exists: ${email}`)
-    process.exit(0)
+    return
   }
 
   await User.create({
