@@ -1,11 +1,12 @@
 import dotenv from 'dotenv'
+import { fileURLToPath } from 'url'
 
 import connectDB from '../config/db.js'
 import User from '../models/User.js'
 
 dotenv.config()
 
-const seedAdmin = async () => {
+export const seedAdmin = async () => {
   await connectDB()
 
   const email = process.env.ADMIN_EMAIL || 'admin@example.com'
@@ -25,10 +26,15 @@ const seedAdmin = async () => {
   })
 
   console.log(`Admin created: ${email}`)
-  process.exit(0)
 }
 
-seedAdmin().catch((error) => {
-  console.error('Failed to seed admin', error)
-  process.exit(1)
-})
+const isDirectRun = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url)
+
+if (isDirectRun) {
+  seedAdmin()
+    .then(() => process.exit(0))
+    .catch((error) => {
+      console.error('Failed to seed admin', error)
+      process.exit(1)
+    })
+}
