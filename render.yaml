@@ -18,7 +18,7 @@ services:
       - key: JWT_SECRET
         sync: false
       - key: CLIENT_URLS
-        value: https://nexus-ecommerce-frontend.onrender.com
+        value: https://nexus-ecommerceplatform-pzvh.vercel.app
       - key: STRIPE_SECRET_KEY
         sync: false
       - key: STRIPE_WEBHOOK_SECRET
@@ -41,7 +41,7 @@ services:
     autoDeployTrigger: commit
     envVars:
       - key: VITE_API_URL
-        value: https://nexus-ecommerce-backend.onrender.com/api
+        value: https://nexus-ecommerceplatform.onrender.com/api
       - key: VITE_STRIPE_PUBLISHABLE_KEY
         sync: false
     routes:

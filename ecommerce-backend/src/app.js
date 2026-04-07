@@ -26,7 +26,7 @@ const app = express()
 const allowedOrigins = (
   process.env.CLIENT_URLS ||
   process.env.CLIENT_URL ||
-  'http://localhost:3000,https://nexus-ecommerce-frontend.onrender.com'
+  'http://localhost:3000,https://nexus-ecommerceplatform-pzvh.vercel.app'
 )
   .split(',')
   .map((origin) => origin.trim())

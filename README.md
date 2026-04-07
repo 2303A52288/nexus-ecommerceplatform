@@ -377,7 +377,7 @@ Backend (`ecommerce-backend`):
 - Frontend cannot call backend:
   - Ensure `VITE_API_URL` is correct and backend is running.
 - CORS error in production:
-  - Add your exact Render frontend URL to `CLIENT_URLS`.
+  - Add your exact Vercel frontend URL to `CLIENT_URLS`.
 - MongoDB connection error:
   - Check Atlas IP allowlist, username/password, and URI.
 - Stripe errors:
