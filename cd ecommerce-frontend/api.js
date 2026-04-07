@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-const apiBaseUrl = import.meta.env.VITE_API_URL || '/api'
+const defaultApiBaseUrl = import.meta.env.PROD
+  ? 'https://nexus-ecommerceplatform.onrender.com/api'
+  : '/api'
+const apiBaseUrl = import.meta.env.VITE_API_URL || defaultApiBaseUrl
 
 const api = axios.create({
   baseURL: apiBaseUrl,
