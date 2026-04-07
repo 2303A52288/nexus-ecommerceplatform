@@ -32,6 +32,13 @@ const allowedOrigins = (
   .map((origin) => origin.trim())
   .filter(Boolean)
 
+const isAllowedOrigin = (origin) => {
+  if (!origin || allowedOrigins.includes(origin)) return true
+
+  // Allow Vercel preview and production domains for this frontend project.
+  return /^https:\/\/nexus-ecommerceplatform(-[a-z0-9]+)?\.vercel\.app$/i.test(origin)
+}
+
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 500,
@@ -43,7 +50,7 @@ app.use(helmet())
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (isAllowedOrigin(origin)) {
         callback(null, true)
         return
       }
