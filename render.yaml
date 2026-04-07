@@ -2,6 +2,7 @@ services:
   - type: web
     name: nexus-ecommerce-backend
     runtime: node
+    plan: free
     rootDir: ecommerce-backend
     buildCommand: npm install
     startCommand: npm start
@@ -34,6 +35,7 @@ services:
   - type: web
     name: nexus-ecommerce-frontend
     runtime: static
+    plan: free
     rootDir: "cd ecommerce-frontend"
     buildCommand: npm install && npm run build
     staticPublishPath: dist
