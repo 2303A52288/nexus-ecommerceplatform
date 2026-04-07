@@ -347,12 +347,12 @@ npm run seed:admin
   - `JWT_SECRET`
   - `STRIPE_SECRET_KEY`
   - `STRIPE_WEBHOOK_SECRET`
-  - `CLIENT_URLS` (include Vercel frontend URL)
+  - `CLIENT_URLS` (include Render frontend URL)
 
-### Frontend on Vercel
+### Frontend on Render
 
 - Root directory: `DEVEOPS_PROJECT/cd ecommerce-frontend`
-- Build command: `npm run build`
+- Build command: `cd "cd ecommerce-frontend" && npm install && npm run build`
 - Output directory: `dist`
 - Required env vars:
   - `VITE_API_URL=https://<your-backend>.onrender.com/api`
@@ -377,7 +377,7 @@ Backend (`ecommerce-backend`):
 - Frontend cannot call backend:
   - Ensure `VITE_API_URL` is correct and backend is running.
 - CORS error in production:
-  - Add your exact Vercel URL to `CLIENT_URLS`.
+  - Add your exact Render frontend URL to `CLIENT_URLS`.
 - MongoDB connection error:
   - Check Atlas IP allowlist, username/password, and URI.
 - Stripe errors:

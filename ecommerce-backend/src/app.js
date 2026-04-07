@@ -23,7 +23,11 @@ dotenv.config()
 
 const app = express()
 
-const allowedOrigins = (process.env.CLIENT_URLS || process.env.CLIENT_URL || 'http://localhost:3000')
+const allowedOrigins = (
+  process.env.CLIENT_URLS ||
+  process.env.CLIENT_URL ||
+  'http://localhost:3000,https://nexus-ecommerce-frontend.onrender.com'
+)
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean)

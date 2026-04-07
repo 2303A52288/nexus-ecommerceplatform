@@ -36,9 +36,8 @@ services:
     name: nexus-ecommerce-frontend
     runtime: static
     plan: free
-    rootDir: "cd ecommerce-frontend"
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
+    buildCommand: cd "cd ecommerce-frontend" && npm install && npm run build
+    staticPublishPath: cd ecommerce-frontend/dist
     autoDeployTrigger: commit
     envVars:
       - key: VITE_API_URL
