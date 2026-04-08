@@ -24,8 +24,7 @@ DEVEOPS_PROJECT/
 1. The React frontend sends requests to backend API routes under `/api`.
 2. Backend validates requests (auth, role checks, business rules).
 3. Controllers interact with MongoDB models through Mongoose.
-4. Payment flows use Stripe API from the backend.
-5. JSON responses are returned to frontend and rendered in UI.
+4. JSON responses are returned to frontend and rendered in UI.
 
 ## Architecture Diagram
 
