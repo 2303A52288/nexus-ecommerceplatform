@@ -34,6 +34,7 @@ const buildImageCandidates = (images, productId) => {
   if (list.length >= 2 && /^https?:\/\//i.test(list[0]) && !/^https?:\/\//i.test(list[1])) {
     const normalized = normalizeImageUrl(`${list[0]},${list[1]}`)
     if (normalized) {
+      candidates.push(normalized)
       candidates.push(buildProductImageProxyUrl(normalized))
     }
   }
@@ -41,6 +42,7 @@ const buildImageCandidates = (images, productId) => {
   list.forEach((item) => {
     const normalized = normalizeImageUrl(item)
     if (normalized) {
+      candidates.push(normalized)
       candidates.push(buildProductImageProxyUrl(normalized))
     }
   })

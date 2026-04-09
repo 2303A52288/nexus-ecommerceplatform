@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ShoppingCart, Star, Trash2 } from 'lucide-react'
 import Loader from './Loaders.jsx'
-import { buildProductImageProxyUrl, getWishlist, removeFromWishlist } from './api.js'
+import { getWishlist, removeFromWishlist } from './api.js'
 import { addToCart as addToCartAction } from './cartSlice.js'
 import { useDispatch } from 'react-redux'
 
@@ -129,7 +129,7 @@ export default function WishlistPage() {
                 <Link to={`/products/${item.product._id}`} className="block">
                   <div className="relative aspect-square overflow-hidden" style={{ background: '#ececec' }}>
                     <img
-                      src={item.product.images?.[0] ? buildProductImageProxyUrl(item.product.images[0]) : '/placeholder.png'}
+                      src={item.product.images?.[0] || '/placeholder.png'}
                       alt={item.product.name}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />

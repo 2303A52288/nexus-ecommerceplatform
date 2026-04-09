@@ -41,6 +41,7 @@ const buildImageCandidates = (images, productId, imageIndex) => {
   if (list.length >= 2 && /^https?:\/\//i.test(list[0]) && !/^https?:\/\//i.test(list[1])) {
     const normalized = normalizeImageUrl(`${list[0]},${list[1]}`)
     if (normalized) {
+      candidates.push(normalized)
       candidates.push(buildProductImageProxyUrl(normalized))
     }
   }
@@ -48,6 +49,7 @@ const buildImageCandidates = (images, productId, imageIndex) => {
   list.forEach((item) => {
     const normalized = normalizeImageUrl(item)
     if (normalized) {
+      candidates.push(normalized)
       candidates.push(buildProductImageProxyUrl(normalized))
     }
   })
@@ -252,7 +254,7 @@ export default function ProductDetailPage() {
               <button key={i} onClick={() => setActiveImg(i)}
                 className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 transition-all"
                 style={{ border: activeImg === i ? '2px solid var(--accent)' : '1px solid var(--border)' }}>
-                <img src={normalizeImageUrl(img) ? buildProductImageProxyUrl(normalizeImageUrl(img)) : `https://picsum.photos/seed/${product._id}-thumb-${i}/80/80`} alt="" className="w-full h-full object-cover" />
+                <img src={normalizeImageUrl(img) || `https://picsum.photos/seed/${product._id}-thumb-${i}/80/80`} alt="" className="w-full h-full object-cover" />
               </button>
             ))}
           </div>
