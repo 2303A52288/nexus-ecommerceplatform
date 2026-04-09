@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Sparkles, Star, ShoppingBag, Heart } from 'lucide-react'
-import { buildProductImageProxyUrl, getActivePromotions, getFeaturedProducts } from './api.js'
+import { getActivePromotions, getFeaturedProducts } from './api.js'
 import { ProductSkeleton } from './Loaders.jsx'
 
 const FALLBACK_PRODUCTS = [
@@ -138,7 +138,7 @@ export default function HomePage() {
               >
                 <div className="relative overflow-hidden">
                   <img
-                    src={product.images?.[0] ? buildProductImageProxyUrl(product.images[0]) : `https://picsum.photos/seed/${product._id}/800/800`}
+                    src={product.images?.[0] || `https://picsum.photos/seed/${product._id}/800/800`}
                     alt={product.name}
                     className="w-full h-[220px] sm:h-[260px] object-cover transition-transform duration-500 group-hover:scale-105"
                   />
