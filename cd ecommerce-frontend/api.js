@@ -1,14 +1,36 @@
 import axios from 'axios'
 
-const defaultApiBaseUrl = import.meta.env.PROD
-  ? 'https://nexus-ecommerceplatform.onrender.com/api'
-  : '/api'
-const apiBaseUrl = import.meta.env.VITE_API_URL || defaultApiBaseUrl
+const RENDER_API_BASE_URL = 'https://nexus-ecommerceplatform.onrender.com/api'
+
+const resolveApiBaseUrl = () => {
+  const configured = String(import.meta.env.VITE_API_URL || '').trim()
+
+  if (!import.meta.env.PROD) {
+    return configured || '/api'
+  }
+
+  // In production, ignore localhost-style values that can break Vercel deploys.
+  if (!configured || /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/i.test(configured)) {
+    return RENDER_API_BASE_URL
+  }
+
+  return configured
+}
+
+const apiBaseUrl = resolveApiBaseUrl()
 
 const api = axios.create({
   baseURL: apiBaseUrl,
   headers: { 'Content-Type': 'application/json' },
 })
+
+const normalizedApiBaseUrl = String(apiBaseUrl || '').replace(/\/+$/, '')
+
+export const buildProductImageProxyUrl = (imageUrl) => {
+  const raw = String(imageUrl || '').trim()
+  if (!raw) return ''
+  return `${normalizedApiBaseUrl}/products/image-proxy?url=${encodeURIComponent(raw)}`
+}
 
 // Attach JWT to every request
 api.interceptors.request.use((config) => {

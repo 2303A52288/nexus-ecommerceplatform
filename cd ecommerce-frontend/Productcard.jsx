@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addToCart } from './cartSlice.js'
+import { buildProductImageProxyUrl } from './api.js'
 import { ShoppingCart, Star, Heart } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -23,8 +24,6 @@ const normalizeImageUrl = (imageUrl) => {
   return raw
 }
 
-const toProxyImageUrl = (imageUrl) => `/api/products/image-proxy?url=${encodeURIComponent(imageUrl)}`
-
 const buildImageCandidates = (images, productId) => {
   const list = (Array.isArray(images) ? images : [images])
     .map((item) => String(item || '').trim())
@@ -35,14 +34,14 @@ const buildImageCandidates = (images, productId) => {
   if (list.length >= 2 && /^https?:\/\//i.test(list[0]) && !/^https?:\/\//i.test(list[1])) {
     const normalized = normalizeImageUrl(`${list[0]},${list[1]}`)
     if (normalized) {
-      candidates.push(toProxyImageUrl(normalized))
+      candidates.push(buildProductImageProxyUrl(normalized))
     }
   }
 
   list.forEach((item) => {
     const normalized = normalizeImageUrl(item)
     if (normalized) {
-      candidates.push(toProxyImageUrl(normalized))
+      candidates.push(buildProductImageProxyUrl(normalized))
     }
   })
 
