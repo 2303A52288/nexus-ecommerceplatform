@@ -3,7 +3,14 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
 import { ShoppingCart, Star, Truck, Shield, ArrowLeft, Heart, Share2, Minus, Plus } from 'lucide-react'
-import { addProductReview, getProductById, addToWishlist, removeFromWishlist, isInWishlist } from './api.js'
+import {
+  addProductReview,
+  getProductById,
+  addToWishlist,
+  removeFromWishlist,
+  isInWishlist,
+  buildProductImageProxyUrl,
+} from './api.js'
 import { addToCart } from './cartSlice.js'
 import { PageLoader } from './Loaders.jsx'
 import toast from 'react-hot-toast'
@@ -24,8 +31,6 @@ const normalizeImageUrl = (url) => {
   return raw
 }
 
-const toProxyImageUrl = (imageUrl) => `/api/products/image-proxy?url=${encodeURIComponent(imageUrl)}`
-
 const buildImageCandidates = (images, productId, imageIndex) => {
   const list = (Array.isArray(images) ? images : [images])
     .map((item) => String(item || '').trim())
@@ -36,14 +41,14 @@ const buildImageCandidates = (images, productId, imageIndex) => {
   if (list.length >= 2 && /^https?:\/\//i.test(list[0]) && !/^https?:\/\//i.test(list[1])) {
     const normalized = normalizeImageUrl(`${list[0]},${list[1]}`)
     if (normalized) {
-      candidates.push(toProxyImageUrl(normalized))
+      candidates.push(buildProductImageProxyUrl(normalized))
     }
   }
 
   list.forEach((item) => {
     const normalized = normalizeImageUrl(item)
     if (normalized) {
-      candidates.push(toProxyImageUrl(normalized))
+      candidates.push(buildProductImageProxyUrl(normalized))
     }
   })
 
@@ -247,7 +252,7 @@ export default function ProductDetailPage() {
               <button key={i} onClick={() => setActiveImg(i)}
                 className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 transition-all"
                 style={{ border: activeImg === i ? '2px solid var(--accent)' : '1px solid var(--border)' }}>
-                <img src={normalizeImageUrl(img) ? toProxyImageUrl(normalizeImageUrl(img)) : `https://picsum.photos/seed/${product._id}-thumb-${i}/80/80`} alt="" className="w-full h-full object-cover" />
+                <img src={normalizeImageUrl(img) ? buildProductImageProxyUrl(normalizeImageUrl(img)) : `https://picsum.photos/seed/${product._id}-thumb-${i}/80/80`} alt="" className="w-full h-full object-cover" />
               </button>
             ))}
           </div>
